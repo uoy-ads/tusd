@@ -48,4 +48,12 @@ EXPOSE 8080
 USER tusd
 
 ENTRYPOINT ["/usr/local/share/docker-entrypoint.sh"]
-CMD [ "--hooks-dir", "/srv/tusd-hooks" ]
+CMD ["-behind-proxy", \
+  "-hooks-http", "http://ingest-api/tus.php", \
+  "-hooks-enabled-events", "pre-create,pre-finish", \
+  "-hooks-http-timeout", "600s", \
+  "-request-completion-timeout", "600s", \
+  "-cors-allow-credentials", \
+  "-hooks-http-forward-headers", "Cookie", \
+  "-disable-download" \
+]
