@@ -48,7 +48,7 @@ EXPOSE 8080
 
 # Create adssys user with UID 500 and GID 500
 RUN groupadd -g 500 adssys \
-    useradd -u 500 -g adssys adssys
+    && useradd -u 500 -g adssys adssys
 
 # Switch to the adssys user
 USER adssys
