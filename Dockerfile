@@ -37,7 +37,7 @@ COPY ./docker/load-env.sh /usr/local/share/load-env.sh
 
 RUN apk add --no-cache ca-certificates jq bash \
     && addgroup -g 500 adssys \
-    && adduser -u 500 -g adssys adssys -s /bin/sh -D tusd \
+    && adduser -u 500 -G adssys -s /bin/sh -D adssys \
     && mkdir -p /srv/tusd-hooks \
 #    && chown tusd:tusd /srv/tusd-data \
     && chmod +x /usr/local/share/docker-entrypoint.sh /usr/local/share/load-env.sh
