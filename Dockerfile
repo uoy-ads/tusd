@@ -36,19 +36,15 @@ COPY ./docker/entrypoint.sh /usr/local/share/docker-entrypoint.sh
 COPY ./docker/load-env.sh /usr/local/share/load-env.sh
 
 RUN apk add --no-cache ca-certificates jq bash \
-    && addgroup -g 1000 tusd \
-    && adduser -u 1000 -G tusd -s /bin/sh -D tusd \
+    && addgroup -g 500 adssys \
+    && adduser -u 500 -g adssys adssys -s /bin/sh -D tusd \
     && mkdir -p /srv/tusd-hooks \
-    && chown tusd:tusd /srv/tusd-data \
+#    && chown tusd:tusd /srv/tusd-data \
     && chmod +x /usr/local/share/docker-entrypoint.sh /usr/local/share/load-env.sh
 
 COPY --from=builder /go/bin/tusd /usr/local/bin/tusd
 
 EXPOSE 8080
-
-# Create adssys user with UID 500 and GID 500
-RUN groupadd -g 500 adssys \
-    && useradd -u 500 -g adssys adssys
 
 # Switch to the adssys user
 USER adssys
