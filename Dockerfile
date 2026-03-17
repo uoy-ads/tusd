@@ -51,7 +51,7 @@ RUN groupadd -g 500 adssys \
     useradd -u 500 -g adssys adssys
 
 # Switch to the adssys user
-USER adsssys
+USER adssys
 
 ENTRYPOINT ["/usr/local/share/docker-entrypoint.sh"]
 CMD ["-behind-proxy", \
