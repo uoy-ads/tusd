@@ -45,7 +45,13 @@ RUN apk add --no-cache ca-certificates jq bash \
 COPY --from=builder /go/bin/tusd /usr/local/bin/tusd
 
 EXPOSE 8080
-USER tusd
+
+# Create adssys user with UID 500 and GID 500
+RUN groupadd -g 500 adssys \
+    useradd -u 500 -g adssys adssys
+
+# Switch to the adssys user
+USER adsssys
 
 ENTRYPOINT ["/usr/local/share/docker-entrypoint.sh"]
 CMD ["-behind-proxy", \
